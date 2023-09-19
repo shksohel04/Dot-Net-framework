@@ -30,7 +30,9 @@ jobs:
       - name: Build with MSBuild
         run: msbuild LoginApp.sln /p:deployonbuild=true /t:clean,rebuild 
       
+      - name: list
+        run: |
+          ls .\LoginApp\bin\
       # - name: Package the code
       #   run: dotnet pack --configuration Release --output ./packages
-      # test
       
