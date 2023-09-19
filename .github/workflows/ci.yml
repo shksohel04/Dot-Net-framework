@@ -33,6 +33,7 @@ jobs:
       - name: list
         run: |
           ls .\LoginApp\bin\
+          ls .\LoginApp\bin\package\
       # - name: Package the code
       #   run: dotnet pack --configuration Release --output ./packages
       
