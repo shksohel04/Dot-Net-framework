@@ -38,9 +38,21 @@ jobs:
 
       - name: list
         shell: bash
-        run: echo ${{ env.apiKey }}
+        run: echo $apiKey
 
-    
+          
+      - name: test
+        run: |    
+          # $apikey
+        
+          # Load the web.config as an XML document
+          [xml]$webConfig = Get-Content -Path .\LoginApp\web.config
+          #  Update appSettings keys with secret values
+          $webConfig.configuration.appSettings.'add' | Where-Object { $_.key -eq 'ApiKey' } | ForEach-Object { $_.value = '$apiKey' }
+          $webConfig.configuration.appSettings.'add' | Where-Object { $_.key -eq 'ConnectionStr' } | ForEach-Object { $_.value = '$connectionStr' }
+          $webConfig
+          # Save the modified XML back to web.config
+          # $webConfig.Save('.\LoginApp\web.config')
           
 
       # - name: clean code
