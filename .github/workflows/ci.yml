@@ -27,20 +27,36 @@ jobs:
           include-prerelease: true
           include: web
 
-      - name: clean code
-        run: msbuild LoginApp.sln /p:deployonbuild=true /t:clean
+      - name: Update web.config
+        run: |
+          # Retrieve secrets from GitHub secrets
+          $apiKey = ${{ secrets.API_KEY }}
+          $connectionStr = ${{ secrets.DB_CONNECTION_STRING }}
+        
+          # Load the web.config as an XML document
+          [xml]$webConfig = Get-Content -Path .\LoginApp\web.config
 
-      - name: list 
-        run: |
-           ls .\LoginApp\bin\
-           ls .\LoginApp\bin\package\
-      - name: Build with MSBuild
-        run: msbuild LoginApp.sln /p:deployonbuild=true /t:clean,rebuild 
+          #  Update appSettings keys with secret values
+          $webConfig.configuration.appSettings.'add' | Where-Object { $.key -eq 'ApiKey' } | ForEach-Object { $.value = $apiKey }
+          $webConfig.configuration.appSettings.'add' | Where-Object { $.key -eq 'ConnectionStr' } | ForEach-Object { $.value = $connectionStr }
+
+          # Save the modified XML back to web.config
+          $webConfig.Save('.\LoginApp\web.config')
+
+      # - name: clean code
+      #   run: msbuild LoginApp.sln /p:deployonbuild=true /t:clean
+
+      # - name: list 
+      #   run: |
+      #      ls .\LoginApp\bin\
+      #      ls .\LoginApp\bin\package\
+      # - name: Build with MSBuild
+      #   run: msbuild LoginApp.sln /p:deployonbuild=true /t:clean,rebuild 
       
-      - name: list
-        run: |
-          ls .\LoginApp\bin\
-          ls .\LoginApp\bin\package\
-      # - name: Package the code
-      #   run: dotnet pack --configuration Release --output ./packages
+      # - name: list
+      #   run: |
+      #     ls .\LoginApp\bin\
+      #     ls .\LoginApp\bin\package\
+      # # - name: Package the code
+      # #   run: dotnet pack --configuration Release --output ./packages
       
