@@ -32,6 +32,8 @@ jobs:
           # Retrieve secrets from GitHub secrets
           $apiKey = ${{ secrets.API_KEY }}
           $connectionStr = ${{ secrets.DB_CONNECTION_STRING }}
+
+          $apikey
         
           # Load the web.config as an XML document
           [xml]$webConfig = Get-Content -Path .\LoginApp\web.config
