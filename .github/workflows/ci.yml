@@ -10,10 +10,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       # Setup ms build
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.0.2
-        with:
-          msbuild-version: '17.0'
+      # - name: Setup MSBuild
+      #   uses: microsoft/setup-msbuild@v1.0.2
+      #   with:
+      #     msbuild-version: '17.0'
       # setup GH Cli
       # - name: Download and Install GitHub CLI
       #   run: |
@@ -33,13 +33,12 @@ jobs:
            connectionStr: ${{ secrets.DB_CONNECTION_STRING }}          
         run: |
           # Retrieve secrets from GitHub secrets
-          
+          echo "$apiKey" >> output.txt
+          echo "$connectionStr" >> output.txt
 
 
       - name: list
-        shell: bash
-        run: echo $apiKey
-
+        run: Get-Content "output.txt"
           
       - name: test
         run: |    
