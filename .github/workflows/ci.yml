@@ -36,12 +36,6 @@ jobs:
           echo "$apiKey" >> output.txt
           echo "$connectionStr" >> output.txt
 
-
-      - name: list
-        run: |
-         $apiKey = ${{ secrets.API_KEY }}
-         $connectionStr = ${{ secrets.DB_CONNECTION_STRING }}  
-          
       - name: test
         run: |    
           # $apikey
