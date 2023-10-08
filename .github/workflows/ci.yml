@@ -50,7 +50,7 @@ jobs:
           #  Update appSettings keys with secret values
           $webConfig.configuration.appSettings.'add' | Where-Object { $_.key -eq 'ApiKey' } | ForEach-Object { $_.value = '$apiKey' }
           $webConfig.configuration.appSettings.'add' | Where-Object { $_.key -eq 'ConnectionStr' } | ForEach-Object { $_.value = '$connectionStr' }
-          $webConfig
+          $webConfig.configuration.appSettings.add
           # Save the modified XML back to web.config
           # $webConfig.Save('.\LoginApp\web.config')
           
