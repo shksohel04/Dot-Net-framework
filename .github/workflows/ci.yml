@@ -35,8 +35,12 @@ jobs:
           # Retrieve secrets from GitHub secrets
           
 
-          $apikey
-        
+
+      - name: list
+        shell: bash
+        run: echo ${{ env.apiKey }}
+
+    
           
 
       # - name: clean code
