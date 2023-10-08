@@ -29,8 +29,8 @@ jobs:
 
       - name: Update web.config
         env: 
-           apiKey = ${{ secrets.API_KEY }}
-           connectionStr = ${{ secrets.DB_CONNECTION_STRING }}          
+           apiKey: ${{ secrets.API_KEY }}
+           connectionStr: ${{ secrets.DB_CONNECTION_STRING }}          
         run: |
           # Retrieve secrets from GitHub secrets
           
