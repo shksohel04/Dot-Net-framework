@@ -28,10 +28,12 @@ jobs:
       #     include: web
 
       - name: Update web.config
+        env: 
+           apiKey = ${{ secrets.API_KEY }}
+           connectionStr = ${{ secrets.DB_CONNECTION_STRING }}          
         run: |
           # Retrieve secrets from GitHub secrets
-          $apiKey = ${{ secrets.API_KEY }}
-          $connectionStr = ${{ secrets.DB_CONNECTION_STRING }}
+          
 
           $apikey
         
